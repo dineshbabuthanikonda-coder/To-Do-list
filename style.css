@@ -1,0 +1,271 @@
+/* ==========================================================================
+   1. CUSTOM CSS VARIABLES (Theme & System Setup)
+   ========================================================================== */
+:root {
+  /* Color Palette - Light Mode Default */
+  --bg-primary: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --border-color: #e2e8f0;
+  --focus-ring: #3b82f6;
+
+  /* Typography */
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --line-height: 1.6;
+
+  /* Spacing System */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+
+  /* Visual Details */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transition-fast: 0.2s ease;
+}
+
+/* Dynamic Dark Mode Theme (Prefers Dark Mode) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0f172a;
+    --bg-surface: #1e293b;
+    --bg-surface-elevated: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #3b82f6;
+    --accent-hover: #60a5fa;
+    --border-color: #334155;
+    --focus-ring: #60a5fa;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ==========================================================================
+   2. GLOBAL RESETS & BASE STYLES
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: var(--line-height);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   3. HEADER & NAVIGATION (Flexbox Alignment)
+   ========================================================================== */
+header {
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--space-sm) var(--space-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+header nav ul {
+  display: flex;
+  list-style: none;
+  gap: var(--space-md);
+}
+
+header nav a {
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: var(--space-xs) 0;
+}
+
+header nav a[aria-current="page"] {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+/* ==========================================================================
+   4. MAIN LAYOUT (CSS Grid & Responsive Architecture)
+   ========================================================================== */
+main {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-md);
+}
+
+/* Grid Layout for Sections / Cards */
+section {
+  display: grid;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+/* Two-column layout on sections with multiple articles */
+section[aria-labelledby="projects-heading"] {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+article {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+article:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   5. ACCESSIBLE FORM STYLING (Flexbox Layout)
+   ========================================================================== */
+form {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+input, textarea {
+  width: 100%;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--accent-color);
+}
+
+button[type="submit"] {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  font-weight: 600;
+  padding: var(--space-sm);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+button[type="submit"]:hover {
+  background-color: var(--accent-hover);
+}
+
+/* ==========================================================================
+   6. FOOTER STYLING
+   ========================================================================== */
+footer {
+  background-color: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+footer nav ul {
+  display: flex;
+  list-style: none;
+  gap: var(--space-md);
+}
+
+/* ==========================================================================
+   7. MOBILE-FIRST RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+
+/* Tablet Viewports (min-width: 640px) */
+@media (min-width: 640px) {
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--space-sm) var(--space-lg);
+  }
+
+  footer {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  section[aria-labelledby="projects-heading"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop Viewports (min-width: 1024px) */
+@media (min-width: 1024px) {
+  main {
+    padding: var(--space-lg);
+  }
+
+  section[aria-labelledby="projects-heading"] {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
